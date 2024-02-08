@@ -22,11 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/', function (Request $request) {
-    // $usuario = new Usuario();
-    // $usuario->nome = 'Andre';
-    // $usuario->save();
+    $usuario = new Usuario();
+    $usuario->nome = 'Andre';
+    $usuario->save();
 
-    $users = DB::table('tipo_usuario')->get();
+    $users = DB::table('usuarios')->get();
 
     return json_encode(['msg' => $users]);
 });
