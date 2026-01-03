@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  laravel:
+    image: bitnami/laravel:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USERNAME=admin
+      - DB_DATABASE=qponto
+      - DB_PASSWORD=admin
+    networks:
+      - laravel-network
+    volumes:
+      - ./laravel_SSR:/app
+    command: ./start.sh
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: a
+      MYSQL_DATABASE: qponto
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - laravel-network
+
+networks:
+  laravel-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
